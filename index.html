@@ -1,97 +1,839 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Baylie Buffel | Official Artist Site</title>
-    <meta name="description"
-        content="Official website of Baylie Buffel. Listen to the latest tracks, view the gallery, and stay updated.">
-
-    <!-- Fonts -->
+    <title>Baylie Buffel | Electronic Artist</title>
+    <meta name="description" content="Official website of Baylie Buffel. Electronic music from the void.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Outfit:wght@300;400;600&display=swap"
-        rel="stylesheet">
-
-    <!-- Styles -->
-    <link rel="stylesheet" href="style.css">
-
-    <!-- Font Awesome -->
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --bg: #0c0c0c;
+            --bg-soft: #141414;
+            --bg-lighter: #1e1e1e;
+            --text: #f0f0f0;
+            --text-dim: #888888;
+            --text-muted: #555555;
+            --accent: #e85d04;
+            --accent-soft: #f48c06;
+            --accent-glow: rgba(232, 93, 4, 0.2);
+            --cyan: #00d4ff;
+            --magenta: #ff006e;
+            --font-display: 'Space Grotesk', sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+            --ease: cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-display);
+            font-weight: 300;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        ::selection {
+            background: var(--accent);
+            color: var(--text);
+        }
+
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--bg-soft);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--accent);
+            border-radius: 3px;
+        }
+
+        h1, h2, h3 {
+            font-family: var(--font-display);
+            font-weight: 600;
+            line-height: 1.15;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 clamp(24px, 5vw, 60px);
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            padding: 20px 0;
+            background: rgba(12, 12, 12, 0.8);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+        }
+
+        .header-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: var(--font-display);
+            font-weight: 600;
+            font-size: 1.1rem;
+            letter-spacing: 0.02em;
+            color: var(--text);
+        }
+
+        .logo span {
+            color: var(--accent);
+        }
+
+        nav {
+            display: flex;
+            gap: 36px;
+        }
+
+        nav a {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            color: var(--text-dim);
+            transition: color 0.3s var(--ease);
+        }
+
+        nav a:hover {
+            color: var(--accent);
+        }
+
+        .menu-btn {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 8px;
+        }
+
+        .menu-btn span {
+            display: block;
+            width: 22px;
+            height: 2px;
+            background: var(--text);
+            transition: transform 0.3s var(--ease);
+        }
+
+        /* Hero */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            padding: 120px 0 80px;
+            overflow: hidden;
+        }
+
+        .hero-bg {
+            position: absolute;
+            inset: 0;
+            z-index: -1;
+        }
+
+        .hero-blur {
+            position: absolute;
+            width: 800px;
+            height: 800px;
+            border-radius: 50%;
+            filter: blur(120px);
+            animation: drift 25s ease-in-out infinite;
+        }
+
+        .hero-blur-1 {
+            background: var(--accent-glow);
+            top: -30%;
+            left: -20%;
+        }
+
+        .hero-blur-2 {
+            background: rgba(0, 212, 255, 0.1);
+            bottom: -30%;
+            right: -20%;
+            animation-delay: -12s;
+        }
+
+        .hero-blur-3 {
+            background: rgba(255, 0, 110, 0.08);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            animation-delay: -6s;
+        }
+
+        @keyframes drift {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            33% { transform: translate(40px, -30px) scale(1.05); }
+            66% { transform: translate(-20px, 20px) scale(0.95); }
+        }
+
+        .hero-lines {
+            position: absolute;
+            inset: 0;
+            background-image: 
+                linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+            background-size: 50px 50px;
+            mask-image: radial-gradient(ellipse at center, black 30%, transparent 70%);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-label {
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.25em;
+            color: var(--accent);
+            margin-bottom: 24px;
+            opacity: 0;
+            animation: fadeIn 0.8s var(--ease) 0.2s forwards;
+        }
+
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+
+        .hero h1 {
+            font-size: clamp(2.8rem, 9vw, 6.5rem);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: -0.02em;
+            margin-bottom: 24px;
+        }
+
+        .hero h1 span {
+            display: block;
+            opacity: 0;
+            transform: translateY(40px);
+            animation: rise 0.8s var(--ease) forwards;
+        }
+
+        .hero h1 span:first-child {
+            animation-delay: 0.3s;
+        }
+
+        .hero h1 span:last-child {
+            animation-delay: 0.45s;
+            color: var(--text-dim);
+            font-size: clamp(1.8rem, 5vw, 4rem);
+            font-weight: 400;
+        }
+
+        @keyframes rise {
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .hero-desc {
+            font-size: 1rem;
+            color: var(--text-dim);
+            max-width: 440px;
+            margin-bottom: 40px;
+            opacity: 0;
+            animation: fadeIn 0.8s var(--ease) 0.6s forwards;
+        }
+
+        .hero-ctas {
+            display: flex;
+            gap: 14px;
+            flex-wrap: wrap;
+            opacity: 0;
+            animation: fadeIn 0.8s var(--ease) 0.8s forwards;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 14px 26px;
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            font-weight: 400;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            background: transparent;
+            color: var(--text);
+            cursor: pointer;
+            transition: all 0.35s var(--ease);
+        }
+
+        .btn:hover {
+            background: var(--text);
+            color: var(--bg);
+            border-color: var(--text);
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            border-color: var(--accent);
+            color: var(--text);
+        }
+
+        .btn-primary:hover {
+            background: var(--accent-soft);
+            border-color: var(--accent-soft);
+        }
+
+        /* Marquee */
+        .marquee {
+            padding: 24px 0;
+            background: var(--bg-soft);
+            border-top: 1px solid var(--bg-lighter);
+            border-bottom: 1px solid var(--bg-lighter);
+            overflow: hidden;
+        }
+
+        .marquee-track {
+            display: flex;
+            gap: 50px;
+            animation: scroll 30s linear infinite;
+        }
+
+        .marquee-content {
+            display: flex;
+            gap: 50px;
+            flex-shrink: 0;
+        }
+
+        .marquee span {
+            font-family: var(--font-display);
+            font-size: clamp(1.5rem, 3vw, 2.2rem);
+            font-weight: 600;
+            text-transform: uppercase;
+            white-space: nowrap;
+            color: var(--text-muted);
+            transition: color 0.3s var(--ease);
+        }
+
+        .marquee span:hover {
+            color: var(--accent);
+        }
+
+        @keyframes scroll {
+            from { transform: translateX(0); }
+            to { transform: translateX(-50%); }
+        }
+
+        /* Section */
+        .section {
+            padding: clamp(80px, 12vw, 140px) 0;
+        }
+
+        .section-label {
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.25em;
+            color: var(--accent);
+            margin-bottom: 16px;
+        }
+
+        .section h2 {
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            text-transform: uppercase;
+        }
+
+        /* Music */
+        .music {
+            background: linear-gradient(180deg, var(--bg) 0%, var(--bg-soft) 100%);
+        }
+
+        .music-embed {
+            max-width: 700px;
+            margin: 48px auto 0;
+            background: var(--bg);
+            border: 1px solid var(--bg-lighter);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        /* About */
+        .about {
+            background: var(--bg-soft);
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+        }
+
+        .about-text {
+            color: var(--text-dim);
+            font-size: 1rem;
+            margin-bottom: 20px;
+            max-width: 480px;
+        }
+
+        .about-text:first-of-type {
+            font-size: 1.15rem;
+            color: var(--text);
+        }
+
+        .about-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 32px;
+        }
+
+        .about-tag {
+            padding: 10px 18px;
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--text-dim);
+            background: var(--bg);
+            border: 1px solid var(--bg-lighter);
+            transition: all 0.3s var(--ease);
+        }
+
+        .about-tag:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        .about-visual {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .about-shape {
+            width: 300px;
+            height: 300px;
+            border: 1px solid var(--accent);
+            position: relative;
+            animation: rotate 30s linear infinite;
+        }
+
+        .about-shape::before {
+            content: '';
+            position: absolute;
+            inset: 40px;
+            border: 1px solid var(--cyan);
+            opacity: 0.5;
+            animation: rotate 20s linear infinite reverse;
+        }
+
+        .about-shape::after {
+            content: '';
+            position: absolute;
+            inset: 80px;
+            border: 1px solid var(--magenta);
+            opacity: 0.3;
+            animation: rotate 15s linear infinite;
+        }
+
+        @keyframes rotate {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Quote */
+        .quote {
+            background: var(--bg);
+            text-align: center;
+            padding: 140px 0;
+            position: relative;
+        }
+
+        .quote::before {
+            content: '"';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-family: var(--font-display);
+            font-size: 20rem;
+            color: var(--bg-lighter);
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .quote blockquote {
+            font-family: var(--font-display);
+            font-size: clamp(1.5rem, 3.5vw, 2.5rem);
+            font-weight: 400;
+            font-style: italic;
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.5;
+            color: var(--text);
+        }
+
+        .quote cite {
+            display: block;
+            margin-top: 32px;
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            font-style: normal;
+            color: var(--text-muted);
+            letter-spacing: 0.15em;
+        }
+
+        /* Contact */
+        .contact {
+            background: var(--bg-soft);
+            text-align: center;
+            padding: 140px 0;
+            position: relative;
+        }
+
+        .contact::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, var(--accent-glow) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .contact h2 {
+            font-size: clamp(2rem, 5vw, 3rem);
+            margin-bottom: 16px;
+        }
+
+        .contact p {
+            color: var(--text-dim);
+            margin-bottom: 40px;
+        }
+
+        .contact-links {
+            display: flex;
+            gap: 14px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        /* Footer */
+        footer {
+            padding: 48px 0;
+            border-top: 1px solid var(--bg-lighter);
+        }
+
+        .footer-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 24px;
+        }
+
+        .footer-logo {
+            font-family: var(--font-display);
+            font-weight: 600;
+            font-size: 1rem;
+        }
+
+        .footer-logo span {
+            color: var(--accent);
+        }
+
+        .footer-copy {
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+            color: var(--text-muted);
+        }
+
+        .footer-socials {
+            display: flex;
+            gap: 12px;
+        }
+
+        .footer-socials a {
+            width: 42px;
+            height: 42px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid var(--bg-lighter);
+            color: var(--text-dim);
+            font-size: 0.9rem;
+            transition: all 0.3s var(--ease);
+        }
+
+        .footer-socials a:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        /* Mobile */
+        @media (max-width: 768px) {
+            nav { display: none; }
+            .menu-btn { display: flex; }
+            
+            .hero h1 span:last-child { transform: none; }
+            
+            .about-grid {
+                grid-template-columns: 1fr;
+                gap: 48px;
+            }
+            
+            .about-visual {
+                order: -1;
+            }
+            
+            .about-shape {
+                width: 220px;
+                height: 220px;
+            }
+            
+            .footer-inner {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+
+        /* Mobile Menu */
+        .mobile-menu {
+            position: fixed;
+            inset: 0;
+            background: var(--bg);
+            z-index: 200;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 28px;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.4s var(--ease);
+        }
+
+        .mobile-menu.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .mobile-menu a {
+            font-family: var(--font-display);
+            font-size: 1.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .mobile-menu-close {
+            position: absolute;
+            top: 24px;
+            right: 24px;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--text);
+            cursor: pointer;
+        }
+    </style>
 </head>
-
 <body>
-    <div class="noise-overlay"></div>
-    <div class="circle-gradient"></div>
-
-    <header class="main-header">
-        <nav class="navbar">
-            <div class="logo">BAYLIE BUFFEL</div>
-            <ul class="nav-links">
-                <li><a href="#hero">Home</a></li>
-                <li><a href="#music">Music</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
-            <div class="hamburger">
-                <i class="fas fa-bars"></i>
-            </div>
-        </nav>
+    <header>
+        <div class="container header-inner">
+            <a href="#" class="logo">BAYLIE<span>.</span>BUFFEL</a>
+            <nav>
+                <a href="#home">Home</a>
+                <a href="#music">Music</a>
+                <a href="#about">About</a>
+                <a href="#contact">Contact</a>
+            </nav>
+            <button class="menu-btn" aria-label="Menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
     </header>
 
+    <div class="mobile-menu">
+        <button class="mobile-menu-close" aria-label="Close">&times;</button>
+        <a href="#home">Home</a>
+        <a href="#music">Music</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+    </div>
+
     <main>
-        <!-- Hero Section -->
-        <section id="hero" class="hero-section">
-            <div class="hero-content">
-                <h1 class="glitch" data-text="BAYLIE BUFFEL">BAYLIE BUFFEL</h1>
-                <p class="subtitle">Ethereal Sounds from the Void</p>
-                <div class="cta-group">
-                    <a href="#music" class="btn btn-primary">Listen Now</a>
-                    <a href="https://open.spotify.com/artist/0wjvKCCFqndHyldySkwEOu" target="_blank"
-                        class="btn btn-spotify"><i class="fab fa-spotify"></i> Spotify</a>
+        <section id="home" class="hero">
+            <div class="hero-bg">
+                <div class="hero-blur hero-blur-1"></div>
+                <div class="hero-blur hero-blur-2"></div>
+                <div class="hero-blur hero-blur-3"></div>
+                <div class="hero-lines"></div>
+            </div>
+            <div class="container hero-content">
+                <p class="hero-label">Electronic Artist</p>
+                <h1>
+                    <span>Baylie Buffel</span>
+                    <span>Sound from the Void</span>
+                </h1>
+                <p class="hero-desc">
+                    Crafting ethereal sonic landscapes through handmade synthesis. Ambient textures, experimental tones, and gentle noise.
+                </p>
+                <div class="hero-ctas">
+                    <a href="#music" class="btn btn-primary">
+                        <i class="fas fa-play"></i> Listen
+                    </a>
+                    <a href="https://open.spotify.com/artist/0wjvKCCFqndHyldySkwEOu" target="_blank" class="btn">
+                        <i class="fab fa-spotify"></i> Spotify
+                    </a>
                 </div>
             </div>
-            <div class="hero-visual">
-                <!-- Placeholder for dynamic visual/image -->
+        </section>
+
+        <div class="marquee">
+            <div class="marquee-track">
+                <div class="marquee-content">
+                    <span>Synth</span>
+                    <span>Ambient</span>
+                    <span>Texture</span>
+                    <span>Noise</span>
+                    <span>Experimental</span>
+                    <span>Void</span>
+                    <span>Sound</span>
+                    <span>Tone</span>
+                </div>
+                <div class="marquee-content">
+                    <span>Synth</span>
+                    <span>Ambient</span>
+                    <span>Texture</span>
+                    <span>Noise</span>
+                    <span>Experimental</span>
+                    <span>Void</span>
+                    <span>Sound</span>
+                    <span>Tone</span>
+                </div>
+            </div>
+        </div>
+
+        <section id="music" class="section music">
+            <div class="container">
+                <p class="section-label">Stream</p>
+                <h2>Music</h2>
+                <div class="music-embed">
+                    <iframe src="https://open.spotify.com/embed/artist/0wjvKCCFqndHyldySkwEOu?utm_source=generator&theme=0" width="100%" height="352" frameborder="0" allowfullscreen allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+                </div>
             </div>
         </section>
 
-        <!-- Music Section -->
-        <section id="music" class="music-section">
-            <h2 class="section-title">Latest Releases</h2>
-            <div class="music-container">
-                <iframe style="border-radius:12px"
-                    src="https://open.spotify.com/embed/artist/0wjvKCCFqndHyldySkwEOu?utm_source=generator&theme=0"
-                    width="100%" height="450" frameBorder="0" allowfullscreen=""
-                    allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-                    loading="lazy"></iframe>
+        <section id="about" class="section about">
+            <div class="container">
+                <div class="about-grid">
+                    <div class="about-content">
+                        <p class="section-label">About</p>
+                        <h2>The Artist</h2>
+                        <p class="about-text">
+                            Baylie Buffel creates her sounds from scratch — building custom synths, crafting unique textures, and shaping immersive sonic environments.
+                        </p>
+                        <p class="about-text">
+                            Each release explores new territory without genre constraints, blending handmade tones with experimental techniques and emotional depth.
+                        </p>
+                        <div class="about-tags">
+                            <span class="about-tag">Synth Design</span>
+                            <span class="about-tag">Sound Design</span>
+                            <span class="about-tag">Ambient</span>
+                            <span class="about-tag">Experimental</span>
+                            <span class="about-tag">Texture</span>
+                        </div>
+                    </div>
+                    <div class="about-visual">
+                        <div class="about-shape"></div>
+                    </div>
+                </div>
             </div>
         </section>
 
-        <!-- About Section -->
-        <section id="about" class="about-section">
-            <div class="about-content">
-                <h2 class="section-title">About The Artist</h2>
-                <p>Baylie Buffel is an electronic artist who builds her sound from the ground up, crafting her own
-                    synths and textures to shape immersive, ever‑shifting sonic worlds. Refusing to stick to a single
-                    genre, she experiments freely, creating something unique with every release — a blend of handmade
-                    tones, bold ideas, and constant reinvention.</p>
+        <section class="quote">
+            <div class="container">
+                <blockquote>
+                    "Music is a way to touch the invisible — to create worlds that exist only in sound."
+                </blockquote>
+                <cite>— Baylie Buffel</cite>
             </div>
         </section>
 
-        <!-- Footer -->
-        <footer id="contact">
-            <div class="social-links">
-                <a href="https://open.spotify.com/artist/0wjvKCCFqndHyldySkwEOu" target="_blank"><i
-                        class="fab fa-spotify"></i></a>
-                <a href="mailto:info@bayliebuffel.com" class="social-icon"><i class="fas fa-envelope"></i></a>
+        <section id="contact" class="contact">
+            <div class="container">
+                <h2>Get in Touch</h2>
+                <p>For bookings, collaborations, or just to say hello.</p>
+                <div class="contact-links">
+                    <a href="https://open.spotify.com/artist/0wjvKCCFqndHyldySkwEOu" target="_blank" class="btn">
+                        <i class="fab fa-spotify"></i> Spotify
+                    </a>
+                    <a href="mailto:info@bayliebuffel.com" class="btn">
+                        <i class="fas fa-envelope"></i> Email
+                    </a>
+                </div>
             </div>
-        </footer>
+        </section>
     </main>
 
-    <script src="script.js"></script>
-</body>
+    <footer>
+        <div class="container footer-inner">
+            <div class="footer-logo">BAYLIE<span>.</span>BUFFEL</div>
+            <p class="footer-copy">&copy; 2026 All rights reserved.</p>
+            <div class="footer-socials">
+                <a href="https://open.spotify.com/artist/0wjvKCCFqndHyldySkwEOu" target="_blank" aria-label="Spotify"><i class="fab fa-spotify"></i></a>
+                <a href="mailto:info@bayliebuffel.com" aria-label="Email"><i class="fas fa-envelope"></i></a>
+            </div>
+        </div>
+    </footer>
 
+    <script>
+        const menuBtn = document.querySelector('.menu-btn');
+        const mobileMenu = document.querySelector('.mobile-menu');
+        const mobileMenuClose = document.querySelector('.mobile-menu-close');
+        const mobileLinks = document.querySelectorAll('.mobile-menu a');
+
+        menuBtn.addEventListener('click', () => mobileMenu.classList.add('active'));
+        mobileMenuClose.addEventListener('click', () => mobileMenu.classList.remove('active'));
+        mobileLinks.forEach(link => link.addEventListener('click', () => mobileMenu.classList.remove('active')));
+
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) target.scrollIntoView({ behavior: 'smooth' });
+            });
+        });
+    </script>
+</body>
 </html>
